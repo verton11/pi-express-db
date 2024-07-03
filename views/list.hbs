@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+<table class="table">
+<thead>
+<tr>
+    <th scope="col">Matricula</th>
+    <th scope="col">Nome</th>
+    <th scope="col">data de Nacimento</th>
+    <th scope="col">Email</th>
+    <th></th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
+
+{{#each alunos}}
+<tr>
+    <td>{{matricula}}</td>
+    <td> <a href="/alunos/{{matricula}}">{{nome}}</a> </td>
+    <td>{{data_nascimento}}</td>
+    <td>{{email}}</td>
+    <td><i class="bi bi-pencil-square"></i></td>
+    <td><i class="bi bi-cloud-sleet-fill"></i></td>
+</tr>
+
+{{/each}}
+</tbody>
+</table>
