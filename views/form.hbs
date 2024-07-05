@@ -1,10 +1,18 @@
 <form action="">
 <div class="mb-3">
-    <label for="formGroupExampleInput" class="form-label">Example label</label>
-    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+    <label class="form-label">Nome</label>
+    <input type="text" class="form-control" value="{{aluno.nome}}">
 </div>
 <div class="mb-3">
-    <label for="formGroupExampleInput2" class="form-label">Another label</label>
-    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+    <label class="form-label">Matricula</label>
+    <input type="text" class="form-control" value="{{aluno.matricula}}">
+<div class="mb-3">
+    <label class="form-label">Data de Nacimento</label>
+    <input type="text" class="form-control" value="{{aluno.data_nascimento}}">
+<div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="text" class="form-control" value="{{aluno.email}}">
 </div>
+
+<input type="submit" nome="submit" id="submit" value="{{buttonText}}">
 </form>
