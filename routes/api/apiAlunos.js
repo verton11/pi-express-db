@@ -1,26 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-var alunos = require('../tests/mock/alunos.json');
+var alunos = require('../../tests/mock/alunos.json');
 
 /* GET users listing. */
 router.get('/', function (_req, res, next) {
-    const data = {
-        title: 'Alunos',
-        alunos: alunos.content
-    }
-    res.render('list', data);
+    const data = {alunos}
+    
+    res.json(data)
 });
 
-router.get('/new', function (_req, res, next) {
-    const {heads: labels} = alunos;
-    const parametro = "create";
-    const data = {metodo: "POST", parametro, title: "Novo aluno", buttonText: "Adicionar alunos"};
-
-    res.render('form',data);
-});
-
-router.post('/create',function(req, res, next){
+router.post('/',function(req, res, next){
     const novoAluno = req.body;
     const matricula = novoAluno.matricula;
     
@@ -39,18 +29,6 @@ router.get('/:matricula', function (req, res, next) {
     res.render('card',{title: 'Detalhe dos alunos', aluno})
 });
 
-router.get('/edit/:matricula', function (req, res, next) {
-    const { matricula } = req.params;
-    const aluno = alunos.content[matricula];
-    const data = {
-        aluno,
-        metado: "PUT",
-        parametro: matricula,
-        title: 'Editar Aluno',
-        buttonText: 'Salva alteraçoes'
-    };
-    res.render("form",data);
-});
 router.put('/matricula', function (req, res, next) {
 
     const {body, method} = req
