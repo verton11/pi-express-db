@@ -1,18 +1,22 @@
-<form action="">
-<div class="mb-3">
-    <label class="form-label">Nome</label>
-    <input type="text" class="form-control" value="{{aluno.nome}}">
-</div>
-<div class="mb-3">
-    <label class="form-label">Matricula</label>
-    <input type="text" class="form-control" value="{{aluno.matricula}}">
-<div class="mb-3">
-    <label class="form-label">Data de Nacimento</label>
-    <input type="text" class="form-control" value="{{aluno.data_nascimento}}">
-<div class="mb-3">
-    <label class="form-label">Email</label>
-    <input type="text" class="form-control" value="{{aluno.email}}">
-</div>
+<h1>{{title}}</h1>
 
-<input type="submit" nome="submit" id="submit" value="{{buttonText}}">
+<form action="/alunos/{{parametro}}" method="post">
+    <input type="hidden" name="_method" value="{{metodo}}"> 
+
+    <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text" name="nome" class="form-control" value="{{aluno.nome}}" placeholder="digite o nome">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Matricula</label>
+        <input type="text" name="matricula" maxlength="10" minlength="9" class="form-control" value="{{aluno.matricula}}" placeholder="digite a matricula">
+    <div class="mb-3">
+        <label class="form-label">Data de Nacimento</label>
+        <input type="Date" name="data_nascimento" class = "form-control" value="{{aluno.data_nascimento}}">
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="Email" name="email" class="form-control" value="{{aluno.email}}" placeholder="digite o email">
+    </div>
+
+    <input class="btn btn-primary" type="submit"  id="submit" value="{{buttonText}}">
 </form>

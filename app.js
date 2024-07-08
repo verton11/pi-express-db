@@ -3,13 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var alunosRouter = require('./routes/alunos');
 var sobreRouter = require('./routes/sobre');
 var usersRouter = require('./routes/users');
+var httpMethodOverrider = require('./middlewares/http-method-overrider')
 
 var app = express();
+
+app.use(bodyParser.urlencoded());
+
+app.use(httpMethodOverrider);
 
 var { create } = require('express-handlebars');
 var hbs =  create({ extname: '.hbs' })

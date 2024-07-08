@@ -1,8 +1,29 @@
-<h1>{{title}}</h1>
+<div class="container">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/alunos">Alunos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Detalhes do Aluno</li>
+    </ol>
+</nav>
 
-<ul>
-    <li>{{aluno.nome}}</li>
-    <li>{{aluno.email}}</li>
-    <li>{{aluno.matricula}}</li>
-    <li>{{aluno.data_nascimento}}</li>
-</ul>
+<h1>Detalhes do Aluno</h1>
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="card-body">
+        <h5 class="card-title">John Doe</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">john.doe@example.com</h6>
+        <p><em>(Campo opicional) Espaço reservado para colocar uma breve descrição do aluno.</em></p>
+    </div>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Nascimento: </b>01/04/2000</li>
+        <li class="list-group-item"><b>Número de Matrícula: </b>1234567</li>
+    </ul>
+
+    <div class="card-body">
+        <a href="./edit/1234567" class="card-link">Editar <i class="bi bi-pencil-square"></i></a>
+        <a href="./delete/1234567" class="card-link">Remover <i class="bi bi-trash"></i></a>
+    </div>
+</div>
+    </div>
+
