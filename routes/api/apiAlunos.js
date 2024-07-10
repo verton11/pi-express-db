@@ -16,23 +16,25 @@ router.get('/', async function (_req, res, next) {
     };
 });
 
-router.post('/',function(req, res, next){;
+router.post('/', async function(req, res, next){;
     const query = `
-    UPDATE alunos
     INSERT INTO alunos (matricula, nome, email, data_nascimento)
-    VALUES ($1, $2, $3, $4) `
+    VALUES ($1, $2, $3, DATE $4) `;
 
-    // const novoAluno = req.body;
-    const matricula = novoAluno.matricula;
     
-    alunos.content[matricula] = {...query};
+    const nome = req.body.nome
+    const matricula = req.body.matricula
+    const email = req.body.email
+    const data_nascimento = req.body.data_nascimento
+    
+    const values = [matricula, nome, email, data_nascimento]
 
-    const response = {
-        mas: "aluno criado com sucesso",
-        aluno: alunos.content[matricula]
-    }
-
-    res.status(201).json(response);
+ try {
+    const data = await db.any(query, values)
+    res.status(201).json(data)
+ } catch (error) {
+    
+ }
 });
 
 router.get('/:matricula', function (req, res, next) {
@@ -65,6 +67,11 @@ router.put('/:matricula', function (req, res, next) {
     //     res.status(400).json({msg: error.message})
     // }
 
+    const query = `
+    UPDATE alunos
+    SET nome = $2, email = $3, data_nascimento = $4
+    WHERE matricula = $1`
+
     const novoAluno = req.body;
     const matricula = Number(req.params.matricula);
     
@@ -79,6 +86,8 @@ router.put('/:matricula', function (req, res, next) {
 });
 
 router.delete('/:matricula', function (req, res, next) {
+
+    const require = `DELETE FROM alunos WHERE matricula`
     
     const matricula = req.params.matricula
 
