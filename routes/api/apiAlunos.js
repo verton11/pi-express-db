@@ -12,33 +12,32 @@ router.get('/', async function (_req, res, next) {
         res.status(200).json(data);
         // res.status(200).json('oi');
     } catch (error) {
-        res.status(400).json({msg: error.messager});
+        res.status(400).json({ msg: error.messager });
     };
 });
 
-router.post('/', async function(req, res, next){;
-    const query = `
-    INSERT INTO alunos (matricula, nome, email, data_nascimento)
-    VALUES ($1, $2, $3, DATE $4) `;
-
-    
+router.post('/', async function (req, res, next) {
     const nome = req.body.nome
     const matricula = req.body.matricula
     const email = req.body.email
     const data_nascimento = req.body.data_nascimento
-    
+
+    const query = `
+    INSERT INTO alunos (matricula, nome, email, data_nascimento)
+    VALUES ($1, $2, $3, $4) `;
+
     const values = [matricula, nome, email, data_nascimento]
 
- try {
-    const data = await db.any(query, values)
-    res.status(201).json(data)
- } catch (error) {
-    
- }
+    try {
+        const data = await db.any(query, values)
+        res.status(201).json(data)
+    } catch (error) {
+        res.status(400).json( error );
+    }
 });
 
 router.get('/:matricula', function (req, res, next) {
-    const matricula = req.params.matricula;
+    const {matricula} = req.params.matricula;
     const query = `
     SELECT * 
     FROM alunos 
@@ -48,7 +47,7 @@ router.get('/:matricula', function (req, res, next) {
         const aluno = alunos.content[matricula]
         res.status(200).json('list', aluno);
     } catch (error) {
-        res.status(400).json({msg: error.message})
+        res.status(400).json({ msg: error.message })
     }
 
     // const { matricula } = req.params;
@@ -74,8 +73,8 @@ router.put('/:matricula', function (req, res, next) {
 
     const novoAluno = req.body;
     const matricula = Number(req.params.matricula);
-    
-    alunos.content[matricula] = {...novoAluno, matricula};
+
+    alunos.content[matricula] = { ...novoAluno, matricula };
 
     const response = {
         mas: "aluno criado com sucesso",
@@ -88,7 +87,7 @@ router.put('/:matricula', function (req, res, next) {
 router.delete('/:matricula', function (req, res, next) {
 
     const require = `DELETE FROM alunos WHERE matricula`
-    
+
     const matricula = req.params.matricula
 
     delete alunos.content[matricula]
