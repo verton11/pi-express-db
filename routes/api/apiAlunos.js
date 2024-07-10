@@ -1,48 +1,95 @@
-const express = require('express');
-const router = express.Router();
-
-var alunos = require('../../tests/mock/alunos.json');
+const e = require('express');
+const db = require('../../config/config_database');
+const router = require('express').Router();
 
 /* GET users listing. */
-router.get('/', function (_req, res, next) {
-    const data = {alunos}
-    
-    res.json(data)
+router.get('/', async function (_req, res, next) {
+
+    const query = 'SELECT * FROM alunos';
+
+    try {
+        const data = await db.any(query);
+        res.status(200).json(data);
+        // res.status(200).json('oi');
+    } catch (error) {
+        res.status(400).json({msg: error.messager});
+    };
 });
 
-router.post('/',function(req, res, next){
-    const novoAluno = req.body;
+router.post('/',function(req, res, next){;
+    const query = `
+    UPDATE alunos
+    INSERT INTO alunos (matricula, nome, email, data_nascimento)
+    VALUES ($1, $2, $3, $4) `
+
+    // const novoAluno = req.body;
     const matricula = novoAluno.matricula;
     
-    alunos.content[matricula] = {
-        ...novoAluno,
-        matricula: Number(matricula)
-    };
+    alunos.content[matricula] = {...query};
 
-    res.redirect(alunos);
+    const response = {
+        mas: "aluno criado com sucesso",
+        aluno: alunos.content[matricula]
+    }
+
+    res.status(201).json(response);
 });
 
 router.get('/:matricula', function (req, res, next) {
-    const { matricula } = req.params;
-    const aluno = alunos.content[matricula]
+    const matricula = req.params.matricula;
+    const query = `
+    SELECT * 
+    FROM alunos 
+    WHERE matricula = $1`;
 
-    res.render('card',{title: 'Detalhe dos alunos', aluno})
+    try {
+        const aluno = alunos.content[matricula]
+        res.status(200).json('list', aluno);
+    } catch (error) {
+        res.status(400).json({msg: error.message})
+    }
+
+    // const { matricula } = req.params;
+    // const aluno = alunos.content[matricula]
+
+    // res.render('card',{title: 'Detalhe dos alunos', aluno})
 });
 
-router.put('/matricula', function (req, res, next) {
+router.put('/:matricula', function (req, res, next) {
 
-    const {body, method} = req
+    // const {matricula} = req.params
+    // try {
+    //     const aluno = alunos.content[matricula]
+    //     res.status(200).json('list', aluno);
+    // } catch (error) {
+    //     res.status(400).json({msg: error.message})
+    // }
 
-    res.send({body, method, msg:'alterraçao de usario'});
+    const novoAluno = req.body;
+    const matricula = Number(req.params.matricula);
+    
+    alunos.content[matricula] = {...novoAluno, matricula};
+
+    const response = {
+        mas: "aluno criado com sucesso",
+        aluno: alunos.content[matricula]
+    }
+
+    res.status(200).json(response);
 });
 
 router.delete('/:matricula', function (req, res, next) {
     
-    const {matricula} = req.params
+    const matricula = req.params.matricula
 
     delete alunos.content[matricula]
 
-    res.redirect(303, '/alunos');
+    const response = {
+        mas: "aluno removido",
+        matricula
+    }
+
+    res.status(201).json(response);
 });
 
 
