@@ -19,7 +19,7 @@ router.get('/', async function (_req, res, next) {
 router.get('/:matricula', async function (req, res, next) {
     const matricula = req.params.matricula
     const query = `SELECT *
-        FROM alunos
+        FROM tutor
         WHERE matricula = $1`;
     try {
         const data = await db.one(query,matricula);
@@ -57,7 +57,6 @@ router.post('/', async function (req, res, next) {
 router.put('/:matricula', async function (req, res, next) {
 
     const matricula = req.params.matricula
-
     const nome = req.body.nome
     const email = req.body.email
     const data_nascimento = req.body.data_nascimento
@@ -80,7 +79,7 @@ router.put('/:matricula', async function (req, res, next) {
 router.delete('/:matricula', async function (req, res, next) {
     const matricula = req.params.matricula;
 
-    const require = `DELETE FROM alunos WHERE matricula = $1`
+    const require = `DELETE FROM aluno WHERE matricula = $1`
 
     const args = matricula
 

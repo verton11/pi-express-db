@@ -111,3 +111,12 @@ from horarios
 where hora_inicio >= '18:00:00' and hora_fim <= '22:00:00'
 
 
+-- {
+--     "id_tutor":"",
+-- 	"cpf_tutor": "",
+-- 	"nome_tutor": "",
+-- 	"email_tutor": "",
+-- 	"telefone_tutor": "",
+-- 	"cargo": "",
+-- 	"formacao": ,
+-- }
