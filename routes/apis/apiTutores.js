@@ -52,7 +52,7 @@ router.post('/', async function (req, res, next) {
     }
 });
 
-router.put('/:id', async function (req, res, next) {
+router.put('/:id_tutor', async function (req, res, next) {
     const id = req.body.id_tutor
     const cpf = req.body.cpf_tutor
     const nome = req.body.nome_tutor
